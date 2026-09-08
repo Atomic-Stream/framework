@@ -30,19 +30,14 @@ artefact_logging:
 # Triggered when an agent encounters a halt condition.
 # ---------------------------------------------------------------------
 escalation_handling:
-  1_receive_halt: 
-    action: "Accepts the halt payload (reason, state, attempted action) from the paused agent."
-  2_triage_ping: 
-    action: "Sends a high-priority alert to {{escalation_channel}}."
-    format: |
-      🚨 **AGENT HALTED**
-      **Reason:** [Halt condition triggered]
-      **Attempting:** [What the agent was trying to do]
-      **Awaiting input from:** @[Role mapped from escalation/standard-policy.yaml]
-      *Reply directly to this thread with your decision to unblock.*
-  3_monitor_thread: 
-    action: "Listens to the specific notification thread for a reply from the tagged human."
-  4_capture_decision: 
-    action: "Takes the exact text of the human's reply and appends it to the ticketing system record as the official 'Resolution'."
-  5_resume_agent: 
-    action: "Passes the human's verbatim reply back to the halted agent as an overriding instruction and triggers it to resume execution."
+  1_halt: "Worker agent pauses execution and outputs its current state."
+  2_escalate: "The Scribe sends a message to the {{escalation_channel}} tagging the accountable role."
+  3_capture: "The human replies directly to that specific thread with their decision."
+  4_record: "The Scribe logs the human's reply to the ticketing system as the proposed resolution."
+  
+  # NEW: The Validation Gate
+  5_pre_flight_validation: "The Worker Agent evaluates the human's proposed instruction strictly against the boundaries/ folder and standard-policy invariants."
+  
+  6_resume_or_reject:
+    compliant_path: "If the instruction does not violate any boundaries, the agent resumes execution."
+    rejected_path: "If the instruction violates a boundary, the agent rejects the resolution, remains halted, and returns a 'Resolution Failed' payload to the Scribe."
