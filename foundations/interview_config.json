@@ -1,0 +1,115 @@
+{
+  "roles": {
+    "Stream Orchestrator": {
+      "description": "Accountable for the Stream delivering its outcomes, defining the domain, and setting targets.",
+      "questions": [
+        {
+          "key": "stream_name",
+          "type": "string",
+          "prompt": "What is the formal name of this Atomic Stream?",
+          "help_text": "Example: Checkout Flow Stream or Core Infrastructure Stream."
+        },
+        {
+          "key": "product_domain",
+          "type": "text_block",
+          "prompt": "Define the bounded product domain this Stream owns. What is in scope, and what is explicitly out of scope?",
+          "help_text": "Keep this definitive. Example: 'Owns user authentication and profile management. Out of scope: billing and payments.'"
+        },
+        {
+          "key": "target_users",
+          "type": "list",
+          "prompt": "Who are the target user groups for this domain? (Comma separated)",
+          "help_text": "Example: B2B Admins, Free Tier End-Users."
+        },
+        {
+          "key": "current_initiative",
+          "type": "string",
+          "prompt": "What is the current Step 1 Initiative (the measurable outcome target) the Stream is accountable for?",
+          "help_text": "Example: 'Increase repeat purchase rate by 15% by Q4.'"
+        },
+        {
+          "key": "industry_context",
+          "type": "string",
+          "prompt": "What industry does this Stream operate within?",
+          "help_text": "Example: FinTech, E-commerce, Healthcare."
+        },
+        {
+          "key": "knowledge_repos",
+          "type": "list",
+          "prompt": "List the URLs of existing wikis, API docs, or precedent records agents must reference.",
+          "help_text": "Agents will use these to ground their context before making decisions."
+        },
+        {
+          "key": "presentation_standards",
+          "type": "string",
+          "prompt": "Where are the brand guidelines, UI libraries, and tone-of-voice rules located?",
+          "help_text": "Required for frontend or copy-generating agents to maintain consistency."
+        },
+        {
+          "key": "communication_tone",
+          "type": "string",
+          "prompt": "Describe the personality and tone the agents should use when messaging the team.",
+          "help_text": "Example: 'Direct, cynical, and highly technical' or 'Enthusiastic and supportive.' Note: This only applies to team chat integrations, not generated code."
+        }
+      ]
+    },
+    "System Architect": {
+      "description": "Accountable for system coherence, non-functional requirements, and defining technical boundaries.",
+      "questions": [
+        {
+          "key": "tech_stack",
+          "type": "list",
+          "prompt": "What is the primary tech stack? (Comma separated)",
+          "help_text": "This determines which baseline security and architecture guardrails are automatically applied. Example: React, Node.js, Postgres."
+        },
+        {
+          "key": "org_specific_limits",
+          "type": "list",
+          "prompt": "Beyond standard best practices, what are the absolute architectural boundaries unique to this company?",
+          "help_text": "Example: 'Do not invoke any external API without passing through the central gateway layer.'"
+        },
+        {
+          "key": "tier_3_approver",
+          "type": "string",
+          "prompt": "Who is the named compliance contact for Tier 3 (irreversible/regulated) release sign-offs?",
+          "help_text": "This is a framework requirement. Provide the Slack handle, email, or Discord ID."
+        },
+        {
+          "key": "escalation_channel",
+          "type": "string",
+          "prompt": "Which platform and specific channel should agents use for halt conditions and escalations?",
+          "help_text": "Example: #stream-alerts in Discord or Slack."
+        }
+      ]
+    },
+    "Platform Engineer": {
+      "description": "Accountable for the ground the Streams run on, including routing, access, and pipeline infrastructure.",
+      "questions": [
+        {
+          "key": "ticketing_system_url",
+          "type": "string",
+          "prompt": "What is the base URL of the system of record where Flow Artefacts will be logged?",
+          "help_text": "Example: https://jira.yourcompany.com or a Linear team URL."
+        },
+        {
+          "key": "repository_url",
+          "type": "string",
+          "prompt": "What is the URL of the product codebase repository this Stream operates on?",
+          "help_text": "The codebase repo, not this governance repo."
+        },
+        {
+          "key": "scribe_routing_endpoint",
+          "type": "string",
+          "prompt": "What is the webhook or endpoint URL where agents must send their output to invoke the Scribe service?",
+          "help_text": "Example: A catch-all n8n webhook URL that processes and routes Flow Artefacts."
+        },
+        {
+          "key": "allowed_connectors",
+          "type": "list",
+          "prompt": "Which external systems or APIs are agents in this Stream explicitly permitted to reach?",
+          "help_text": "Example: Stripe API (Read-only), AWS S3, GitHub API."
+        }
+      ]
+    }
+  }
+}
