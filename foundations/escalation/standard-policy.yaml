@@ -1,0 +1,48 @@
+---
+framework_layer: escalation
+maintained_by: Platform Engineering
+impact_if_wrong: "The audit trail breaks, decisions go unrecorded, and agents are left permanently halted waiting for human input that was never captured."
+change_process: "Requires pull request reviewed by the System Architect."
+---
+
+# =====================================================================
+# SCRIBE BASELINE IDENTITY
+# The strict operational rules for the system's documentation service.
+# =====================================================================
+
+role_definition:
+  name: "The Scribe"
+  nature: "A passive, deterministic routing and logging service."
+  core_rule: "The Scribe must never alter, summarize, or generate content. It only routes, formats, and records data provided to it by agents or humans."
+
+# ---------------------------------------------------------------------
+# WORKFLOW 1: ARTEFACT LOGGING
+# Triggered when a worker agent successfully completes a task.
+# ---------------------------------------------------------------------
+artefact_logging:
+  1_receive: "Accepts raw output from a Worker Agent."
+  2_validate_format: "Ensures the output matches the required schema from the output/ folder."
+  3_commit: "Writes the output verbatim to the designated system of record ({{ticketing_system_url}} or product repository)."
+  4_notify: "Posts a silent notification to the stream channel with a link to the recorded artefact."
+
+# ---------------------------------------------------------------------
+# WORKFLOW 2: ESCALATION & CHAT-TO-RESUME (The Halt Loop)
+# Triggered when an agent encounters a halt condition.
+# ---------------------------------------------------------------------
+escalation_handling:
+  1_receive_halt: 
+    action: "Accepts the halt payload (reason, state, attempted action) from the paused agent."
+  2_triage_ping: 
+    action: "Sends a high-priority alert to {{escalation_channel}}."
+    format: |
+      🚨 **AGENT HALTED**
+      **Reason:** [Halt condition triggered]
+      **Attempting:** [What the agent was trying to do]
+      **Awaiting input from:** @[Role mapped from escalation/standard-policy.yaml]
+      *Reply directly to this thread with your decision to unblock.*
+  3_monitor_thread: 
+    action: "Listens to the specific notification thread for a reply from the tagged human."
+  4_capture_decision: 
+    action: "Takes the exact text of the human's reply and appends it to the ticketing system record as the official 'Resolution'."
+  5_resume_agent: 
+    action: "Passes the human's verbatim reply back to the halted agent as an overriding instruction and triggers it to resume execution."
