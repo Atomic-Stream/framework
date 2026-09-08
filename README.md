@@ -1,5 +1,3 @@
-# framework
-A delivery framework for teams in which AI agents perform most of the production work. Guide, declarations, and a worked example.
 # The Atomic Stream: Executable Governance 
 
 This repository contains the foundational declarations required to run an Atomic Stream. It provides the exact structure for agent identity, architectural boundaries, and escalation policies so that agentic teams can operate safely without continuous human supervision.
