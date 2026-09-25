@@ -22,6 +22,8 @@ The framework is deliberately incomplete. It defines the minimum set of rules re
 
 Throughout this guide, "must" indicates a rule of the framework. "May" indicates a permitted variation. Where a rule exists, its rationale is given, because a rule whose purpose is not understood will be discarded under pressure.
 
+The framework has a companion repository holding the declarations this guide requires, published as they are written. It is described under Agent Foundations, and is at github.com/Atomic-Stream/framework
+
 ### Where This Framework Came From
 
 This guide is an argument from practice rather than a survey of the field.
@@ -407,7 +409,7 @@ The Atomic Stream addresses these through the structure already described rather
 ### The Guarantees
 
 - Every artefact has exactly one accountable human, named. Accountability is not shared across a team and not attributed to a system.
-- No decision is closed by an agent. Agents produce, agents check, and agents raise findings. Approving, rejecting and closing are human acts in every case. Where release or rollback is automatic, it executes a judgement a person recorded in advance rather than making one.
+- No decision is closed by an agent. Agents produce, agents check, and agents raise findings. Approving, rejecting, and closing are human acts in every case. Where release or rollback is automatic, it executes a judgement a person recorded in advance rather than making one.
 - Every agent action traces to a brief authored by an identified person and to the review by which that person accepted the result. Generated work that no human reviewed does not reach production.
 - Every change of consequence is recorded at the time it is made: what changed, who decided, on what evidence, and when. Boundary decisions are recorded in the decision record, product decisions in the artefact chain from Initiative to Feedback Pack.
 - Every rule the agents operate under is versioned, and every change to those rules is reviewable as a diff with an author and a date.
@@ -583,7 +585,7 @@ An organisation adopting the Atomic Stream to reduce headcount while keeping its
 
 ## Companion Repository
 
-This guide is accompanied by an open repository holding the declarations it describes, published as they are written. The escalation policy — the conditions under which an agent must halt rather than exercise judgement — is complete. The remaining five declarations are in progress, and each states what belongs in it, who maintains it, and why it is not yet written.
+This guide is accompanied by an open repository holding the declarations it describes, published as they are written. The escalation policy is complete; the remaining five are in progress, and each states what belongs in it, who maintains it, and why it is not yet written.
 
 Repository: https://github.com/Atomic-Stream/framework
 
