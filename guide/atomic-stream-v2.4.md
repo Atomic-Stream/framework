@@ -255,6 +255,8 @@ Work in the Atomic Stream moves through six steps. Each has one accountable huma
 
 It is called a loop rather than a pipeline because it does not terminate. What is released generates signal, the signal is decided upon, and the decision opens or amends the next Intent. A Stream should expect to move from a new Intent to a Go or No-Go decision in weeks rather than quarters; the interval from that decision to a release depends on what was approved.
 
+![The Loop — six steps from strategy to evidence](images/loop.png)
+
 *The Loop. Worker agents produce, a checker agent validates each handoff, and a human decides at every step. Solid connectors carry work forward; dashed connectors return information — a closed Intent updates the Initiative, a Feedback Pack opens or amends one. What allows agents to work unattended between these decisions is set out under Agent Foundations.*
 
 ### Step 1 — Initiative
@@ -359,6 +361,8 @@ An agent works without supervision between one human decision and the next. That
 | **What its output must look like** | output/ | The required shape of the artefact it produces, in a form specific enough to be checked. | Platform Engineering |
 
 The six folders are how the companion repository is arranged, one per question, in the order asked. Their contents will change as tooling does; the questions will not.
+
+![The foundation layers — declarations, connection layer, agents, artefacts](images/foundations.png)
 
 *The foundation layers. The Loop states that agents do the work; this is what allows it. Humans author the declarations at the top and decide at the bottom — and at any layer, an agent that cannot proceed halts and raises to the accountable human rather than deciding for itself.*
 
